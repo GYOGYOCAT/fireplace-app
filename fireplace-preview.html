@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Fireplace - Relaxing Ambiance</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .fireplace-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1a0f0a 0%, #000000 100%);
+        }
+
+        .fireplace-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.2) saturate(1.3);
+        }
+
+        .header-ad {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            text-align: center;
+            z-index: 100;
+            color: #ff8c00;
+        }
+
+        .footer-ad {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            text-align: center;
+            z-index: 100;
+            color: #ff8c00;
+        }
+
+        .sidebar-ad {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 90;
+            color: #ff8c00;
+            text-align: center;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 50px;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 200;
+            border: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 140, 0, 0.6);
+            color: #ff8c00;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 140, 0, 0.2);
+            border-color: #ff8c00;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ff8c00;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 140, 0, 0.3);
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff8c00;
+            cursor: pointer;
+        }
+
+        .start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .start-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .start-title {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+        }
+
+        .start-description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 140, 0, 0.4);
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 250px;
+            z-index: 150;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .info-title {
+            color: #ff8c00;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .info-value {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 140, 0, 0.8);
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10px) translateX(10px); opacity: 0; }
+        }
+
+        /* 実写焚火動画 */
+        .fireplace-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.2) saturate(1.3);
+        }
+
+
+        @media (max-width: 768px) {
+            .sidebar-ad, .info-panel {
+                display: none;
+            }
+            
+            .controls {
+                bottom: 100px;
+                padding: 10px 20px;
+                gap: 15px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .volume-slider {
+                width: 80px;
+            }
+            
+            .start-title {
+                font-size: 2rem;
+            }
+            
+            .start-content {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* フルスクリーン時の広告非表示 */
+        body:fullscreen .header-ad,
+        body:fullscreen .footer-ad,
+        body:fullscreen .sidebar-ad {
+            display: none !important;
+        }
+        
+        /* フルスクリーン時のコントロール調整 */
+        body:fullscreen .controls {
+            bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- スタートオーバーレイ -->
+    <div class="start-overlay" id="startOverlay">
+        <div class="start-content">
+            <h1 class="start-title">🔥 Fireplace</h1>
+            <p class="start-description">
+                Experience the ultimate relaxation with beautiful flames and soothing sounds.<br>
+                Perfect for work, meditation, and sleep.
+            </p>
+            <button class="start-btn" onclick="startFireplace()">
+                🔥 Start Fireplace
+            </button>
+            <div style="margin-top: 20px; font-size: 0.9rem; color: #999;">
+                * This is a preview version
+            </div>
+        </div>
+    </div>
+
+    <!-- メイン焚火コンテナ -->
+    <div class="fireplace-container">
+        <!-- 実写焚火動画 -->
+        <video 
+            class="fireplace-video" 
+            id="fireplaceVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSIjMGEwYTBhIi8+CjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjU0MCIgcj0iMjAwIiBmaWxsPSJyYWRpYWwtZ3JhZGllbnQoY2lyY2xlLCNmZjhjMDAgMCUsIzAwMDAwMCAxMDAlKSIvPgo8L3N2Zz4K">
+            
+            <!-- 高品質焚火動画ソース -->
+            <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+            
+            <!-- フォールバック用YouTube埋め込み -->
+        </video>
+
+        <!-- 著作権フリー焚火動画（商用利用可） -->
+        <video 
+            class="fireplace-video-main" 
+            id="fireplaceMainVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+            
+            <!-- Pexels - 最高品質リアル焚火動画（商用可・著作権フリー） -->
+            <source src="https://player.vimeo.com/external/291648067.hd.mp4?s=94998971682c6a3267e4f2dc8b0a8b7e6bbefb9a&profile_id=175" type="video/mp4">
+            
+            <!-- フォールバック: Pixabay焚火動画 -->
+            <source src="https://cdn.pixabay.com/vimeo/460434629/fireplace-54007.mp4?width=1920&hash=69b1a05b1dd70e90ec55be6cc8aaf40c37ce88a8" type="video/mp4">
+            
+            <!-- さらなるフォールバック: Archive.org -->
+            <source src="https://archive.org/download/fireplace-4k-uhd/fireplace-4k-uhd.mp4" type="video/mp4">
+            
+            <!-- 最終フォールバック: Coverr -->
+            <source src="https://coverr.co/videos/cozy-fireplace/download" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- パーティクルエフェクト -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 上部広告エリア -->
+    <div class="header-ad">
+        📢 AdSense Advertisement Area (Header) - pub-1106158066306697
+    </div>
+
+    <!-- サイドバー広告エリア（デスクトップ） -->
+    <div class="sidebar-ad">
+        📢 AdSense<br>Advertisement<br>Area (Sidebar)
+    </div>
+
+    <!-- 情報パネル -->
+    <div class="info-panel">
+        <div class="info-title">🔥 Fireplace Info</div>
+        <div class="info-item">
+            <span>Status: </span>
+            <span class="info-value" id="fireStatus">Standby</span>
+        </div>
+        <div class="info-item">
+            <span>Time: </span>
+            <span class="info-value" id="fireTime">00:00:00</span>
+        </div>
+        <div class="info-item">
+            <span>Warmth: </span>
+            <span class="info-value" id="fireTemp">🌡️ Cozy</span>
+        </div>
+        <div class="info-item">
+            <span>Volume: </span>
+            <span class="info-value" id="volumeDisplay">50%</span>
+        </div>
+    </div>
+
+    <!-- コントロールパネル -->
+    <div class="controls">
+        <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()" title="再生/一時停止">
+            ⏸️
+        </button>
+        
+        <button class="control-btn" id="muteBtn" onclick="toggleMute()" title="ミュート/ミュート解除">
+            🔊
+        </button>
+        
+        <div class="volume-container">
+            <span>🔉</span>
+            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
+        </div>
+        
+        <button class="control-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="フルスクリーン">
+            ⛶
+        </button>
+        
+        <button class="control-btn" id="hideUIBtn" onclick="toggleUI()" title="UI表示/非表示">
+            👁️
+        </button>
+    </div>
+
+    <!-- 下部広告エリア -->
+    <div class="footer-ad">
+        📢 AdSense Advertisement Area (Footer) - Responsive Design
+    </div>
+
+    <script>
+        // グローバル変数
+        let isPlaying = false;
+        let isMuted = false;
+        let isUIVisible = true;
+        let startTime = null;
+        let fireplaceVideo = document.getElementById('fireplaceVideo');
+        let fireplaceMainVideo = document.getElementById('fireplaceMainVideo');
+
+        // 焚火開始
+        function startFireplace() {
+            document.getElementById('startOverlay').style.display = 'none';
+            
+            // メイン動画を再生開始
+            if (fireplaceMainVideo) {
+                fireplaceMainVideo.muted = false; // 音声ありで再生
+                fireplaceMainVideo.play().catch(e => {
+                    console.log('Main video autoplay prevented, trying muted');
+                    fireplaceMainVideo.muted = true;
+                    fireplaceMainVideo.play();
+                });
+            }
+            
+            // フォールバック動画も試行
+            if (fireplaceVideo) {
+                fireplaceVideo.play().catch(e => console.log('Fallback video autoplay prevented'));
+            }
+            
+            isPlaying = true;
+            startTime = Date.now();
+            updateFireStatus();
+            startTimer();
+            createParticles();
+            updateTemperature();
+        }
+
+        // 再生/一時停止
+        function togglePlayPause() {
+            const btn = document.getElementById('playPauseBtn');
+            
+            if (isPlaying) {
+                // 一時停止
+                if (fireplaceMainVideo) fireplaceMainVideo.pause();
+                if (fireplaceVideo) fireplaceVideo.pause();
+                btn.innerHTML = '▶️';
+                document.getElementById('fireStatus').textContent = 'Paused';
+            } else {
+                // 再生
+                if (fireplaceMainVideo) fireplaceMainVideo.play();
+                if (fireplaceVideo) fireplaceVideo.play();
+                btn.innerHTML = '⏸️';
+                document.getElementById('fireStatus').textContent = 'Burning';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // ミュート切り替え
+        function toggleMute() {
+            const btn = document.getElementById('muteBtn');
+            
+            if (isMuted) {
+                // ミュート解除
+                if (fireplaceMainVideo) fireplaceMainVideo.muted = false;
+                if (fireplaceVideo) fireplaceVideo.muted = false;
+                btn.innerHTML = '🔊';
+            } else {
+                // ミュート
+                if (fireplaceMainVideo) fireplaceMainVideo.muted = true;
+                if (fireplaceVideo) fireplaceVideo.muted = true;
+                btn.innerHTML = '🔇';
+            }
+            isMuted = !isMuted;
+        }
+
+        // 音量変更
+        function changeVolume(value) {
+            if (fireplaceMainVideo) fireplaceMainVideo.volume = value / 100;
+            if (fireplaceVideo) fireplaceVideo.volume = value / 100;
+            document.getElementById('volumeDisplay').textContent = value + '%';
+        }
+
+        // フルスクリーン
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // UI表示/非表示
+        function toggleUI() {
+            const elements = ['.header-ad', '.footer-ad', '.sidebar-ad', '.info-panel'];
+            
+            elements.forEach(selector => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.classList.toggle('hidden');
+                }
+            });
+            
+            isUIVisible = !isUIVisible;
+            document.getElementById('hideUIBtn').innerHTML = isUIVisible ? '👁️' : '🙈';
+        }
+
+        // 焚火状態更新
+        function updateFireStatus() {
+            if (isPlaying) {
+                document.getElementById('fireStatus').textContent = 'Burning';
+            }
+        }
+
+        // タイマー更新
+        function startTimer() {
+            setInterval(() => {
+                if (startTime && isPlaying) {
+                    const elapsed = Date.now() - startTime;
+                    const hours = Math.floor(elapsed / 3600000);
+                    const minutes = Math.floor((elapsed % 3600000) / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    
+                    document.getElementById('fireTime').textContent = 
+                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // 温度表示更新
+        function updateTemperature() {
+            const temps = ['🌡️ Cozy', '🌡️ Warm', '🌡️ Comfortable', '🌡️ Relaxing'];
+            let index = 0;
+            
+            setInterval(() => {
+                document.getElementById('fireTemp').textContent = temps[index % temps.length];
+                index++;
+            }, 5000);
+        }
+
+        // パーティクルエフェクト
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            setInterval(() => {
+                if (isPlaying) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    
+                    particlesContainer.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 5000);
+                }
+            }, 500);
+        }
+
+        // キーボードショートカット
+        document.addEventListener('keydown', (e) => {
+            switch(e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    togglePlayPause();
+                    break;
+                case 'KeyM':
+                    toggleMute();
+                    break;
+                case 'KeyF':
+                    toggleFullscreen();
+                    break;
+                case 'KeyH':
+                    toggleUI();
+                    break;
+            }
+        });
+
+        // マウス非表示（一定時間後）
+        let mouseTimer;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'default';
+            clearTimeout(mouseTimer);
+            mouseTimer = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

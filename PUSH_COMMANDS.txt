@@ -1,0 +1,13 @@
+# GitHubにプッシュするコマンド
+
+# 1. GitHubリポジトリのURLを下記に置き換えてください
+git remote add origin https://github.com/YOUR_USERNAME/fireplace-app.git
+
+# 2. ファイルをGitHubにプッシュ
+git push -u origin main
+
+# エラーが出た場合は強制プッシュ
+git push -u origin main --force
+
+# 確認
+git remote -v
