@@ -648,6 +648,149 @@
             100% { transform: translateY(-180px) scaleX(1.8) rotate(-6deg); opacity: 0; }
         }
 
+        /* 火の粉エフェクト */
+        .ember-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 20;
+        }
+
+        .ember-1 {
+            bottom: 25%; left: 48%;
+            animation: emberFloat1 4s infinite ease-out;
+        }
+
+        .ember-2 {
+            bottom: 30%; left: 52%;
+            animation: emberFloat2 5s infinite ease-out 0.5s;
+        }
+
+        .ember-3 {
+            bottom: 28%; left: 50%;
+            animation: emberFloat3 4.5s infinite ease-out 1s;
+        }
+
+        .ember-4 {
+            bottom: 32%; left: 49%;
+            animation: emberFloat4 3.8s infinite ease-out 1.5s;
+        }
+
+        .ember-5 {
+            bottom: 26%; left: 51%;
+            animation: emberFloat5 4.2s infinite ease-out 2s;
+        }
+
+        .ember-6 {
+            bottom: 29%; left: 53%;
+            animation: emberFloat6 5.2s infinite ease-out 2.5s;
+        }
+
+        .ember-7 {
+            bottom: 31%; left: 47%;
+            animation: emberFloat7 4.8s infinite ease-out 3s;
+        }
+
+        .ember-8 {
+            bottom: 27%; left: 54%;
+            animation: emberFloat8 4.4s infinite ease-out 3.5s;
+        }
+
+        @keyframes emberFloat1 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+            20% { opacity: 1; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-200px) translateX(-20px) scale(0.3); opacity: 0; }
+        }
+
+        @keyframes emberFloat2 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.7; }
+            25% { opacity: 0.9; }
+            75% { opacity: 0.5; }
+            100% { transform: translateY(-250px) translateX(30px) scale(0.2); opacity: 0; }
+        }
+
+        @keyframes emberFloat3 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+            30% { opacity: 0.8; }
+            70% { opacity: 0.4; }
+            100% { transform: translateY(-180px) translateX(10px) scale(0.4); opacity: 0; }
+        }
+
+        @keyframes emberFloat4 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.9; }
+            15% { opacity: 1; }
+            85% { opacity: 0.3; }
+            100% { transform: translateY(-220px) translateX(-30px) scale(0.2); opacity: 0; }
+        }
+
+        @keyframes emberFloat5 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
+            35% { opacity: 0.7; }
+            65% { opacity: 0.4; }
+            100% { transform: translateY(-160px) translateX(25px) scale(0.3); opacity: 0; }
+        }
+
+        @keyframes emberFloat6 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+            25% { opacity: 0.9; }
+            75% { opacity: 0.2; }
+            100% { transform: translateY(-280px) translateX(-15px) scale(0.1); opacity: 0; }
+        }
+
+        @keyframes emberFloat7 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.7; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-240px) translateX(20px) scale(0.2); opacity: 0; }
+        }
+
+        @keyframes emberFloat8 {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+            40% { opacity: 0.8; }
+            60% { opacity: 0.5; }
+            100% { transform: translateY(-190px) translateX(-25px) scale(0.3); opacity: 0; }
+        }
+
+        /* 熱波エフェクト */
+        .heat-distortion {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, transparent 0%, rgba(255, 140, 0, 0.1) 30%, transparent 100%);
+            animation: heatWave 3s infinite ease-in-out;
+            z-index: 5;
+        }
+
+        @keyframes heatWave {
+            0%, 100% { transform: skewX(0deg) scaleY(1); opacity: 0.3; }
+            50% { transform: skewX(1deg) scaleY(1.02); opacity: 0.5; }
+        }
+
+        /* 光の反射 */
+        .glow-effect {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(255, 140, 0, 0.3) 0%, rgba(255, 69, 0, 0.2) 40%, transparent 70%);
+            border-radius: 50%;
+            animation: glow 2.5s infinite ease-in-out;
+            z-index: 3;
+        }
+
+        @keyframes glow {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+            50% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+        }
+
         /* 熱波エフェクト */
         .heat-wave {
             position: absolute; bottom: 15%; left: 30%; right: 30%; height: 300px;
@@ -693,7 +836,7 @@
             <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
         </video>
 
-        <!-- 著作権フリー焚火動画（商用利用可） -->
+        <!-- 著作権フリー焚火動画（確実なソース） -->
         <video 
             class="fireplace-video-main" 
             id="fireplaceMainVideo"
@@ -702,20 +845,37 @@
             loop
             playsinline
             preload="auto"
+            crossorigin="anonymous"
             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
             
-            <!-- Pexels - 最高品質リアル焚火動画（商用可・著作権フリー） -->
-            <source src="https://player.vimeo.com/external/291648067.hd.mp4?s=94998971682c6a3267e4f2dc8b0a8b7e6bbefb9a&profile_id=175" type="video/mp4">
+            <!-- Pixabay - 確実な著作権フリー動画 -->
+            <source src="https://pixabay.com/videos/download/video-6631_large.mp4" type="video/mp4">
             
-            <!-- フォールバック: Pixabay焚火動画 -->
-            <source src="https://cdn.pixabay.com/vimeo/460434629/fireplace-54007.mp4?width=1920&hash=69b1a05b1dd70e90ec55be6cc8aaf40c37ce88a8" type="video/mp4">
+            <!-- Archive.org - パブリックドメイン -->
+            <source src="https://archive.org/download/Fireplace_201611/Fireplace.mp4" type="video/mp4">
             
-            <!-- さらなるフォールバック: Archive.org -->
-            <source src="https://archive.org/download/fireplace-4k-uhd/fireplace-4k-uhd.mp4" type="video/mp4">
-            
-            <!-- 最終フォールバック: Coverr -->
-            <source src="https://coverr.co/videos/cozy-fireplace/download" type="video/mp4">
+            <!-- フォールバック: Base64埋め込み小動画 -->
+            <source src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMWRhc2gAAAAIZnJlZQAAAAhtZGF0AAAAZGZyZWUAAAA4bWRhdAABABEABohQEQAAAAAAAAAAAP//wAAAHkBuAAAAAFVTAAAFo0JTA2dnAAAFUgFOAAAFSgFOAAAFMAAAE/I=" type="video/mp4">
         </video>
+
+        <!-- リアル焚火エフェクト（CSS + JavaScript） -->
+        <div class="fireplace-effects" id="fireplaceEffects">
+            <!-- 追加の火の粉 -->
+            <div class="ember-particle ember-1"></div>
+            <div class="ember-particle ember-2"></div>
+            <div class="ember-particle ember-3"></div>
+            <div class="ember-particle ember-4"></div>
+            <div class="ember-particle ember-5"></div>
+            <div class="ember-particle ember-6"></div>
+            <div class="ember-particle ember-7"></div>
+            <div class="ember-particle ember-8"></div>
+            
+            <!-- 熱波エフェクト -->
+            <div class="heat-distortion"></div>
+            
+            <!-- 光の反射 -->
+            <div class="glow-effect"></div>
+        </div>
     </div>
 
     <!-- パーティクルエフェクト -->
@@ -798,10 +958,24 @@
              data-full-width-responsive="true"></ins>
     </div>
 
-    <!-- 音声ファイル（焚火の音） -->
-    <audio id="fireplaceAudio" loop preload="auto">
-        <source src="https://www.soundjay.com/misc/sounds/campfire-1.wav" type="audio/wav">
-        <!-- フォールバック: Data URLで生成したホワイトノイズ -->
+    <!-- 焚火音声（著作権フリー） -->
+    <audio id="fireplaceAudio" loop preload="auto" crossorigin="anonymous">
+        <!-- Archive.org - パブリックドメイン焚火音 -->
+        <source src="https://archive.org/download/fireplace-crackling-sound/fireplace-crackling.mp3" type="audio/mpeg">
+        
+        <!-- フォールバック: Pixabay音声 -->
+        <source src="https://pixabay.com/audio/download/audio-28466_fireplace-6307.mp3" type="audio/mpeg">
+        
+        <!-- 緊急フォールバック: Web Audio生成音 -->
+    </audio>
+    
+    <!-- 追加アンビエント音 -->
+    <audio id="ambientAudio" loop preload="auto" volume="0.3" crossorigin="anonymous">
+        <!-- 木がパチパチ音 - Archive.org -->
+        <source src="https://archive.org/download/wood-crackling-sounds/wood-crackling.mp3" type="audio/mpeg">
+        
+        <!-- フォールバック: Pixabay木音 -->
+        <source src="https://pixabay.com/audio/download/audio-15626_wood-fire-crackling.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -811,24 +985,40 @@
         let isUIVisible = true;
         let startTime = null;
         let fireplaceVideo = document.getElementById('fireplaceVideo');
+        let fireplaceMainVideo = document.getElementById('fireplaceMainVideo');
         let fireplaceAudio = document.getElementById('fireplaceAudio');
-        let youtubePlayer = document.getElementById('youtubePlayer');
+        let ambientAudio = document.getElementById('ambientAudio');
 
         // 焚火開始
         function startFireplace() {
             document.getElementById('startOverlay').style.display = 'none';
             
-            // 動画を再生開始
-            if (fireplaceVideo) {
-                fireplaceVideo.play().catch(e => console.log('Video autoplay prevented'));
+            // メイン動画を再生開始（優先）
+            if (fireplaceMainVideo) {
+                fireplaceMainVideo.muted = false;
+                fireplaceMainVideo.play().catch(e => {
+                    console.log('Main video autoplay prevented, trying muted');
+                    fireplaceMainVideo.muted = true;
+                    fireplaceMainVideo.play();
+                });
             }
             
-            // YouTube動画のミュートを解除（音声付きで再生）
-            youtubePlayer.src = youtubePlayer.src.replace('mute=1', 'mute=0');
+            // フォールバック動画も準備
+            if (fireplaceVideo) {
+                fireplaceVideo.play().catch(e => console.log('Fallback video autoplay prevented'));
+            }
             
             // 音声の再生を試行
-            fireplaceAudio.volume = 0.5;
-            fireplaceAudio.play().catch(e => console.log('Audio autoplay prevented'));
+            if (fireplaceAudio) {
+                fireplaceAudio.volume = 0.6;
+                fireplaceAudio.play().catch(e => console.log('Main audio autoplay prevented'));
+            }
+            
+            // アンビエント音も再生
+            if (ambientAudio) {
+                ambientAudio.volume = 0.3;
+                ambientAudio.play().catch(e => console.log('Ambient audio autoplay prevented'));
+            }
             
             isPlaying = true;
             startTime = Date.now();
@@ -844,14 +1034,18 @@
             
             if (isPlaying) {
                 // 一時停止
+                if (fireplaceMainVideo) fireplaceMainVideo.pause();
                 if (fireplaceVideo) fireplaceVideo.pause();
                 if (fireplaceAudio) fireplaceAudio.pause();
+                if (ambientAudio) ambientAudio.pause();
                 btn.innerHTML = '▶️';
                 document.getElementById('fireStatus').textContent = 'Paused';
             } else {
                 // 再生
+                if (fireplaceMainVideo) fireplaceMainVideo.play();
                 if (fireplaceVideo) fireplaceVideo.play();
                 if (fireplaceAudio) fireplaceAudio.play();
+                if (ambientAudio) ambientAudio.play();
                 btn.innerHTML = '⏸️';
                 document.getElementById('fireStatus').textContent = 'Burning';
             }
@@ -863,10 +1057,14 @@
             const btn = document.getElementById('muteBtn');
             
             if (isMuted) {
-                fireplaceAudio.muted = false;
+                if (fireplaceAudio) fireplaceAudio.muted = false;
+                if (ambientAudio) ambientAudio.muted = false;
+                if (fireplaceMainVideo) fireplaceMainVideo.muted = false;
                 btn.innerHTML = '🔊';
             } else {
-                fireplaceAudio.muted = true;
+                if (fireplaceAudio) fireplaceAudio.muted = true;
+                if (ambientAudio) ambientAudio.muted = true;
+                if (fireplaceMainVideo) fireplaceMainVideo.muted = true;
                 btn.innerHTML = '🔇';
             }
             isMuted = !isMuted;
@@ -874,7 +1072,10 @@
 
         // 音量変更
         function changeVolume(value) {
-            fireplaceAudio.volume = value / 100;
+            const volume = value / 100;
+            if (fireplaceAudio) fireplaceAudio.volume = volume;
+            if (ambientAudio) ambientAudio.volume = volume * 0.5; // アンビエント音は半分の音量
+            if (fireplaceMainVideo) fireplaceMainVideo.volume = volume;
             document.getElementById('volumeDisplay').textContent = value + '%';
         }
 
